@@ -7,22 +7,29 @@
 using namespace std;
 using namespace MyTools;
 
+Tank::Tank(const Tank& newTank)
+{
+	x = newTank.x;
+	y = newTank.y;
+	width = newTank.width;
+}
+
 bool Tank::isInside(double x1, double x2) const
 {
 	const double XBeg = x + 2;
 	const double XEnd = x + width - 1;
 
-	if (x1 < XBeg && x2 > XEnd)
+	if (x1 <= XBeg && x2 >= XEnd)
 	{
 		return true;
 	}
 
-	if (x1 > XBeg && x1 < XEnd)
+	if (x1 >= XBeg && x1 <= XEnd)
 	{
 		return true;
 	}
 
-	if (x2 > XBeg && x2 < XEnd)
+	if (x2 >= XBeg && x2 <= XEnd)
 	{
 		return true;
 	}
@@ -41,4 +48,9 @@ void Tank::Draw() const
 	cout << "    #####";
 	GotoXY(x,y);
 	cout << " ###########";
+}
+
+Tank* Tank::clone()
+{
+	return new Tank(*this);
 }
